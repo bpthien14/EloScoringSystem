@@ -1,0 +1,86 @@
+# Lộ trình triển khai Hệ thống Elo Scoring cho Game 5vs5
+
+## Giai đoạn 1: Thiết lập cơ sở hạ tầng và dữ liệu
+- [x] Phân tích yêu cầu hệ thống 
+- [x] Thiết kế cơ sở dữ liệu MongoDB
+- [x] Thiết lập dự án Node.js với Express
+- [x] Cấu hình kết nối MongoDB
+- [x] Tạo các model schema cho từng collection
+- [x] Tạo dữ liệu mẫu và script seed
+- [x] Thiết kế API endpoints (RESTful)
+
+## Giai đoạn 2: Phát triển logic nghiệp vụ cốt lõi
+- [x] Triển khai thuật toán Elo
+- [x] Xây dựng các service xử lý:
+  - [x] PlayerService (quản lý người chơi)
+  - [x] MatchService (quản lý trận đấu)
+  - [x] EloService (tính toán và cập nhật điểm Elo)
+  - [x] SeasonService (quản lý mùa giải)
+- [x] Triển khai tính năng random và cân bằng đội
+- [ ] Viết unit tests cho các thuật toán và nghiệp vụ cốt lõi
+
+## Giai đoạn 3: Xây dựng REST API
+- [x] Xây dựng các controllers:
+  - [x] PlayerController
+  - [x] MatchController
+  - [x] SeasonController
+  - [x] StatisticsController
+- [ chưa làm authentication vs logging ] Triển khai middleware (authentication, logging, validation)
+- [ ] Viết tài liệu API với Swagger/OpenAPI
+- [ ] Cài đặt rate limiting và các biện pháp bảo mật
+
+## Giai đoạn 4: Xây dựng Frontend
+- [x] Thiết lập dự án React (hoặc Vue/Angular)
+- [x] Xây dựng layout và navigation chung
+- [x] Triển khai các màn hình:
+  - [x] Màn hình chính/Bảng xếp hạng
+  - [x] Màn hình chi tiết người chơi
+  - [x] Màn hình thông tin trận đấu
+  - [ ] Màn hình quản lý hệ thống
+- [ ] Tích hợp biểu đồ và visualization với D3.js hoặc Chart.js
+- [ ] Triển khai state management
+
+## Giai đoạn 5: Tích hợp và Testing
+- [ ] Tích hợp frontend với backend
+- [ ] Viết integration tests
+- [ ] Triển khai end-to-end tests
+- [ ] Tối ưu hiệu suất:
+  - [ ] Caching (Redis)
+  - [ ] Pagination
+  - [ ] Lazy loading
+- [ ] Kiểm thử bảo mật
+
+## Giai đoạn 6: Tính năng nâng cao
+- [ ] Triển khai hệ thống xếp hạng theo mùa
+- [ ] Tính năng hiệu chuẩn (calibration)
+- [ ] Tích hợp phân tích và dự đoán
+- [ ] Hệ thống cảnh báo và phát hiện bất thường
+- [ ] Tính năng xuất báo cáo
+
+## Giai đoạn 7: Deployment và DevOps
+- [ ] Thiết lập CI/CD pipeline
+- [ ] Cấu hình Docker
+- [ ] Triển khai lên cloud (AWS/GCP/Azure)
+- [ ] Cấu hình monitoring và logging
+- [ ] Thiết lập backup và disaster recovery
+
+## Công nghệ đề xuất
+- **Backend**: Node.js, Express
+- **Database**: MongoDB
+- **Cache**: Redis
+- **Frontend**: React, Material UI
+- **Charts**: Chart.js
+- **Testing**: Jest, Supertest, Cypress
+- **Documentation**: Swagger/OpenAPI
+- **DevOps**: Docker, GitHub Actions
+
+## Timeline dự kiến
+- Giai đoạn 1: 1 tuần
+- Giai đoạn 2: 2 tuần
+- Giai đoạn 3: 1 tuần
+- Giai đoạn 4: 2 tuần
+- Giai đoạn 5: 1 tuần
+- Giai đoạn 6: 2 tuần
+- Giai đoạn 7: 1 tuần
+
+Tổng thời gian: 10 tuần

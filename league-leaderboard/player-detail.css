@@ -1,0 +1,925 @@
+/* Player profile styles */
+.player-profile {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.profile-header {
+  display: flex;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.profile-avatar {
+  position: relative;
+  margin-right: 20px;
+}
+
+.player-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+}
+
+.player-level {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  background-color: #5383e8;
+  color: #fff;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.player-name-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.player-name {
+  font-size: 24px;
+  font-weight: 700;
+  margin-right: 5px;
+}
+
+.player-tag {
+  color: #666;
+  font-size: 18px;
+}
+
+.region-badge {
+  background-color: #eee;
+  color: #666;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+.player-rank {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background-color: #5383e8;
+  color: #fff;
+}
+
+.btn-secondary {
+  background-color: #f0f2f5;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.last-updated {
+  color: #999;
+  font-size: 12px;
+}
+
+.profile-nav {
+  display: flex;
+  border-bottom: 1px solid #eee;
+}
+
+.nav-link {
+  padding: 15px 20px;
+  color: #666;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+}
+
+.nav-link.active {
+  color: #5383e8;
+}
+
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #5383e8;
+}
+
+.profile-content {
+  padding: 20px;
+}
+
+.profile-section {
+  margin-bottom: 30px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.section-header h3 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.info-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #eee;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.rank-info {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.rank-emblem {
+  margin-right: 20px;
+}
+
+.rank-emblem-img {
+  width: 80px;
+  height: 80px;
+}
+
+.rank-details h4 {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.rank-lp {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.rank-winrate {
+  font-size: 14px;
+  color: #666;
+}
+
+.rank-history {
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.rank-history-item {
+  display: flex;
+  padding: 10px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.rank-season {
+  width: 100px;
+  font-size: 14px;
+}
+
+.rank-tier-col {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.tier-icon {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.tier-icon.challenger {
+  background-color: #5383e8;
+}
+
+.tier-icon.grandmaster {
+  background-color: #e84057;
+}
+
+.rank-lp-col {
+  width: 80px;
+  text-align: right;
+  font-size: 14px;
+}
+
+.view-more {
+  padding: 10px 15px;
+  color: #5383e8;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.champion-search {
+  padding: 8px 30px 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 200px;
+  position: relative;
+}
+
+.search-champion {
+  position: relative;
+}
+
+.search-champion svg {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+}
+
+.recent-stats {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.stats-summary {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-right: 1px solid #eee;
+  width: 250px;
+}
+
+.win-loss {
+  font-size: 14px;
+  margin-right: 15px;
+}
+
+.kda-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #f0f2f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.kda-circle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: conic-gradient(#5383e8 0% 40%, #ff5a5a 40% 100%);
+  z-index: 1;
+}
+
+.kda-value {
+  position: relative;
+  z-index: 2;
+  background-color: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  color: #5383e8;
+}
+
+.kda-stats {
+  display: flex;
+  flex-direction: column;
+}
+
+.kda-title {
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.kda-subtitle {
+  font-size: 12px;
+  color: #666;
+}
+
+.recent-champions {
+  padding: 15px;
+  border-right: 1px solid #eee;
+  width: 250px;
+}
+
+.recent-champions-title {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.champion-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.champion-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.champion-percentage {
+  font-weight: 500;
+}
+
+.champion-kda {
+  font-size: 12px;
+  color: #666;
+}
+
+.preferred-role {
+  padding: 15px;
+  flex: 1;
+}
+
+.preferred-role-title {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.role-bars {
+  display: flex;
+  height: 100px;
+  gap: 20px;
+  align-items: flex-end;
+}
+
+.role-bar {
+  width: 30px;
+  height: 100%;
+  background-color: #f0f2f5;
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.role-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #5383e8;
+  border-radius: 0 0 4px 4px;
+}
+
+.role-icon {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+.match-history {
+  border: 1px solid #eee;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.match-item {
+  border-bottom: 1px solid #eee;
+}
+
+.match-header {
+  display: flex;
+  padding: 10px 15px;
+  background-color: #f8f9fa;
+}
+
+.match-type {
+  flex: 1;
+}
+
+.match-queue {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.match-time {
+  font-size: 12px;
+  color: #666;
+}
+
+.match-result {
+  width: 120px;
+  text-align: right;
+}
+
+.result-text {
+  font-weight: 500;
+}
+
+.match-result.victory {
+  color: #5383e8;
+}
+
+.match-result.defeat {
+  color: #e84057;
+}
+
+.match-duration {
+  font-size: 12px;
+  color: #666;
+}
+
+.match-details {
+  display: flex;
+  padding: 15px;
+  align-items: center;
+}
+
+.champion-played {
+  position: relative;
+  margin-right: 10px;
+}
+
+.champion-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.champion-level {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #333;
+  color: #fff;
+  font-size: 10px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.summoner-spells {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-right: 5px;
+}
+
+.spell-img {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+}
+
+.runes {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-right: 15px;
+}
+
+.rune-img {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+}
+
+.kda-container {
+  margin-right: 15px;
+  width: 100px;
+}
+
+.kda-numbers {
+  font-weight: 500;
+}
+
+.kda-ratio {
+  font-size: 12px;
+  color: #666;
+}
+
+.match-stats {
+  margin-right: 15px;
+  width: 150px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+
+.stat-value {
+  font-size: 12px;
+  color: #666;
+}
+
+.items-built {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  width: 150px;
+  margin-right: 15px;
+}
+
+.item-img {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+}
+
+.match-players {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+
+.team-players {
+  display: flex;
+  gap: 5px;
+}
+
+.player-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.player-champion {
+  width: 100%;
+  height: 100%;
+}
+
+.match-actions {
+  display: flex;
+  align-items: center;
+}
+
+.btn-match-detail {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.btn-match-detail:hover {
+  background-color: #f0f2f5;
+}
+
+.btn-match-detail.active svg {
+  transform: rotate(180deg);
+}
+
+/* Match detail expanded view */
+.match-detail-expanded {
+  display: none;
+  border-top: 1px solid #eee;
+  padding: 15px;
+  background-color: #f8f9fa;
+}
+
+.match-detail-expanded.active {
+  display: block;
+}
+
+.match-tabs {
+  display: flex;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 15px;
+}
+
+.match-tab {
+  padding: 10px 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #666;
+  position: relative;
+}
+
+.match-tab.active {
+  color: #5383e8;
+}
+
+.match-tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #5383e8;
+}
+
+.team-header {
+  display: flex;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.team-title {
+  width: 200px;
+  font-weight: 500;
+}
+
+.team-title.victory {
+  color: #5383e8;
+}
+
+.team-title.defeat {
+  color: #e84057;
+}
+
+.team-stats {
+  display: flex;
+  flex: 1;
+}
+
+.team-stat {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.player-performance {
+  margin-bottom: 20px;
+}
+
+.player-row {
+  display: flex;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  align-items: center;
+}
+
+.player-champion {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-champion-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-bottom: 5px;
+}
+
+.player-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.player-tier {
+  font-size: 12px;
+  color: #666;
+}
+
+.player-op-score,
+.player-kda,
+.player-damage,
+.player-wards,
+.player-cs,
+.player-items {
+  flex: 1;
+  text-align: center;
+}
+
+.op-score {
+  font-weight: 500;
+}
+
+.op-rank {
+  font-size: 12px;
+  color: #666;
+  padding: 2px 6px;
+  background-color: #eee;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.kda-detail {
+  font-size: 14px;
+}
+
+.damage-bar {
+  height: 4px;
+  background-color: #e84057;
+  margin-bottom: 5px;
+}
+
+.damage-value {
+  font-size: 14px;
+}
+
+.wards-value,
+.cs-value,
+.cs-per-min {
+  font-size: 14px;
+}
+
+.detail-item-img {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  margin-right: 2px;
+}
+
+.team-summary {
+  margin-top: 20px;
+}
+
+.team-stat-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.team-stat-label {
+  width: 100px;
+  font-size: 14px;
+}
+
+.team-stat-bar {
+  flex: 1;
+  height: 24px;
+  display: flex;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.team-stat-fill {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+}
+
+.team-stat-fill.blue {
+  background-color: #5383e8;
+}
+
+.team-stat-fill.red {
+  background-color: #e84057;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-avatar {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+
+  .recent-stats {
+    flex-direction: column;
+  }
+
+  .stats-summary,
+  .recent-champions {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #eee;
+  }
+
+  .match-details {
+    flex-wrap: wrap;
+  }
+
+  .match-stats,
+  .items-built {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-nav {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .nav-link {
+    padding: 15px 10px;
+  }
+
+  .match-header {
+    flex-direction: column;
+  }
+
+  .match-result {
+    width: 100%;
+    text-align: left;
+    margin-top: 5px;
+  }
+
+  .player-row {
+    flex-wrap: wrap;
+  }
+
+  .player-champion {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .player-op-score,
+  .player-kda,
+  .player-damage,
+  .player-wards,
+  .player-cs,
+  .player-items {
+    width: 50%;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .match-details {
+    padding: 10px;
+  }
+
+  .champion-played {
+    margin-right: 5px;
+  }
+
+  .champion-img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .kda-container {
+    width: auto;
+  }
+
+  .match-tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}

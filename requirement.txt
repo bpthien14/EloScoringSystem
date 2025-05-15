@@ -1,0 +1,171 @@
+Game 5vs5: Mỗi trận đấu có 10 người chơi chia thành 2 đội
+Thông tin bổ sung cần hiển thị:
+Kết quả thắng/thua của trận đấu
+Vị trí người chơi (Top, Jungle, Mid, ADC, Support)
+Tỉ lệ thắng của người chơi
+
+Thiết kế hệ thống 
+1. Kiến trúc tổng thể 
+┌─────────────────┐     ┌──────────────────┐     ┌───────────────────┐
+│                 │     │                  │     │                   │
+│  Giao diện UI   │<--->│  Xử lý nghiệp vụ │<--->│  Cơ sở dữ liệu    │
+│                 │     │                  │     │                   │
+└─────────────────┘     └──────────────────┘     └───────────────────┘
+
+2. Cơ sở dữ liệu 
+Bảng Player (Người chơi)
+player_id (PK): Định danh người chơi
+name: Tên người chơi
+current_elo: Điểm ELO hiện tại
+matches_played: Số trận đã chơi
+wins: Số trận thắng
+losses: Số trận thua
+preferred_position: Vị trí ưa thích (Top, Jungle, Mid, ADC, Support)
+created_at: Ngày tạo tài khoản
+last_match_date: Ngày chơi trận gần nhất
+// win_rate: Tỉ lệ thắng (%) - chuyển thành trường tính toán
+
+Bảng Team (Đội)
+team_id (PK): Định danh đội
+// Loại bỏ match_id (FK): Tham chiếu đến trận đấu - tránh quan hệ vòng lặp
+// Loại bỏ is_winner - đã có trong bảng Match
+
+Bảng Match (Trận đấu)
+match_id (PK): Định danh trận đấu
+match_date: Ngày diễn ra trận đấu
+is_random: Boolean xác định đây có phải là trận random không
+blue_team_id (FK): ID đội xanh
+red_team_id (FK): ID đội đỏ
+winner_team_id (FK): ID đội thắng
+season_id (FK): Tham chiếu đến mùa giải hiện tại
+match_duration: Thời gian trận đấu (phút)
+
+Bảng Match_Player (Tương quan người chơi và trận đấu)
+match_id (FK): Tham chiếu đến trận đấu
+player_id (FK): Tham chiếu đến người chơi
+team_id (FK): Đội của người chơi
+position: Vị trí chơi trong trận (Top, Jungle, Mid, ADC, Support)
+elo_before: Điểm ELO trước trận
+elo_after: Điểm ELO sau trận
+win: Boolean thể hiện thắng/thua
+elo_change: Thay đổi điểm ELO (+/-)
+performance_stats: JSON lưu trữ chỉ số hiệu suất (KDA, damage, etc.)
+left_early: Boolean xác định người chơi có rời trận sớm không
+
+Bảng Season (Mùa giải)
+season_id (PK): Định danh mùa giải
+name: Tên mùa giải
+start_date: Ngày bắt đầu
+end_date: Ngày kết thúc
+is_active: Boolean xác định mùa giải có đang hoạt động không
+
+3. Thuật toán tính điểm ELO (cập nhật cho LOL 5v5)
+Thay vì chỉ tính toán giữa 2 người chơi, chúng ta cần tính toán giữa 2 đội:
+
+// Hệ số K cơ bản
+K_BASE = 32 // Người chơi mới (<30 trận)
+K_REGULAR = 24 // Người chơi thường (30-100 trận)
+K_EXPERIENCED = 16 // Người chơi kỳ cựu (>100 trận)
+
+// Hệ số vị trí (Position_Factor)
+POSITION_FACTOR = {
+  "Top": 1.1,
+  "Jungle": 1.2,
+  "Mid": 1.15,
+  "ADC": 1.1,
+  "Support": 0.9
+}
+
+// Tính điểm trung bình của đội
+Team_Rating_A = (Ra1 + Ra2 + Ra3 + Ra4 + Ra5) / 5
+Team_Rating_B = (Rb1 + Rb2 + Rb3 + Rb4 + Rb5) / 5
+
+// Tính xác suất thắng dự đoán
+Ea = 1 / (1 + 10^((Team_Rating_B - Team_Rating_A) / 400))
+Eb = 1 / (1 + 10^((Team_Rating_A - Team_Rating_B) / 400))
+
+// Hệ số hiệu suất (Performance_Factor) dựa trên KDA
+Performance_Factor = (Kills + Assists) / Math.max(1, Deaths) // Ví dụ cơ bản
+// Giới hạn hệ số trong khoảng [0.5, 1.5]
+Performance_Factor = Math.min(1.5, Math.max(0.5, Performance_Factor))
+
+// Hệ số chuỗi thắng/thua (Streak_Factor)
+Streak_Factor = 1 + (win_streak * 0.02) // Thêm 2% cho mỗi trận thắng liên tiếp
+Streak_Factor = 1 - (lose_streak * 0.01) // Giảm 1% cho mỗi trận thua liên tiếp
+
+// Nếu đội A thắng, cập nhật điểm ELO cho từng người chơi
+Với mỗi người chơi i trong đội A:
+  K_i = Xác định K theo số trận của người chơi
+  Rai_new = Rai + K_i * (1 - Ea) * Position_Factor_i * Performance_Factor_i * Streak_Factor_i
+
+Với mỗi người chơi j trong đội B:
+  K_j = Xác định K theo số trận của người chơi
+  Rbj_new = Rbj + K_j * (0 - Eb) * Position_Factor_j * Performance_Factor_j * Streak_Factor_j
+
+// Xử lý đặc biệt cho người chơi mới
+Nếu matches_played < 10:
+  Điểm ELO khởi tạo = 1000
+  K = 40 // Hệ số cao hơn cho giai đoạn calibration
+
+// Xử lý người chơi rời trận sớm
+Nếu left_early == true:
+  Elo_change = Elo_change * 1.5 // Penalty 50% điểm trừ thêm
+  Thêm vào bảng penalty ghi nhận hành vi
+
+4. Tính năng random kết quả 
+Random kết quả trận đấu (thắng/thua) cho 10 người chơi (2 đội)
+Random vị trí chơi cho mỗi người trong đội
+Cập nhật điểm ELO dựa trên kết quả và vị trí
+Tính năng cân bằng đội hình dựa trên ELO:
+  - Tổng ELO của hai đội chênh lệch không quá 5%
+  - Mỗi vị trí của hai đội chênh lệch không quá 10%
+Tính năng dự đoán tỉ lệ thắng trước trận đấu dựa trên ELO hiện tại
+
+5. Thiết kế UI 
+Màn hình chính
+Bảng xếp hạng người chơi theo điểm ELO
+Biểu đồ thể hiện biến động điểm ELO theo thời gian
+Bộ lọc theo vị trí (Top, Jungle, Mid, ADC, Support)
+Hiển thị tỉ lệ thắng tổng thể và theo từng vị trí
+Bộ lọc theo mùa giải (season) và chế độ xem lịch sử
+
+Màn hình chi tiết người chơi
+Thông tin cá nhân, điểm ELO hiện tại và tỉ lệ thắng
+Lịch sử 100 trận đấu gần nhất với thông tin vị trí chơi
+Biểu đồ hiệu suất theo từng vị trí
+Biểu đồ tỉ lệ thắng theo vị trí
+Biểu đồ tiến triển ELO theo thời gian
+Thống kê về streak thắng/thua dài nhất
+
+Màn hình thông tin trận đấu
+Hiển thị 2 đội với 5 người mỗi đội
+Vị trí của từng người chơi trong trận
+Điểm ELO trước và sau trận của từng người
+Kết quả thắng/thua và mức thay đổi điểm
+Phân tích chi tiết yếu tố ảnh hưởng đến thay đổi điểm (vị trí, hiệu suất, streak)
+
+Màn hình quản lý hệ thống
+Điều chỉnh hệ số K và các điều kiện +/- điểm
+Điều chỉnh hệ số theo vị trí (Position_Factor)
+Thiết lập các tham số cho thuật toán tính toán
+Quản lý mùa giải (tạo mới, kết thúc, hiệu chuẩn lại điểm)
+Quản lý người chơi (thêm, xóa, reset điểm)
+Hệ thống báo cáo hành vi tiêu cực và xử lý penalty
+
+6. Tính năng nâng cao
+Hệ thống xếp hạng theo mùa
+  - Reset một phần điểm ELO khi bắt đầu mùa mới (soft reset)
+  - Phần thưởng cho người chơi top ranking cuối mùa
+  
+Hệ thống calibrate định kỳ
+  - Hiệu chuẩn lại điểm ELO sau một khoảng thời gian không hoạt động
+  - Tăng/giảm giá trị K cho người chơi có kết quả không nhất quán
+
+Tính năng dự đoán và phân tích
+  - Dự đoán kết quả trận đấu dựa trên điểm ELO
+  - Phân tích xu hướng của người chơi theo thời gian
+  - Gợi ý cải thiện dựa trên dữ liệu hiệu suất
+
+Tích hợp hệ thống cảnh báo
+  - Cảnh báo người chơi có hành vi bất thường (win/lose streak dài bất thường)
+  - Phát hiện boosting hoặc feeding có chủ đích

@@ -1,0 +1,201 @@
+# Thiết kế cơ sở dữ liệu MongoDB cho Hệ thống Elo (Cập nhật với Embedded Teams)
+
+## Collection: players
+```javascript
+{
+  _id: ObjectId,              // ID tự động sinh bởi MongoDB
+  name: String,               // Tên người chơi
+  currentElo: Number,         // Điểm ELO hiện tại (mặc định: 1000)
+  matchesPlayed: Number,      // Số trận đã chơi
+  wins: Number,               // Số trận thắng
+  losses: Number,             // Số trận thua
+  preferredPosition: String,  // Vị trí ưa thích (Top, Jungle, Mid, ADC, Support)
+  winStreak: Number,          // Số trận thắng liên tiếp hiện tại
+  loseStreak: Number,         // Số trận thua liên tiếp hiện tại
+  positionStats: {            // Thống kê theo vị trí
+    Top: {
+      matches: Number,        // Số trận đã chơi ở vị trí Top
+      wins: Number,           // Số trận thắng ở vị trí Top
+      averageEloChange: Number // Trung bình thay đổi ELO khi chơi Top
+    },
+    Jungle: { ... },
+    Mid: { ... },
+    ADC: { ... },
+    Support: { ... }
+  },
+  seasonStats: {              // Thống kê theo mùa
+    "season1": {
+      elo: Number,            // Điểm ELO của mùa
+      matches: Number,        // Số trận đã chơi trong mùa
+      wins: Number,           // Số trận thắng trong mùa
+      rank: Number            // Xếp hạng cuối mùa
+    },
+    "season2": { ... }
+  },
+  createdAt: Date,            // Ngày tạo tài khoản
+  lastMatchDate: Date,        // Ngày chơi trận gần nhất
+  isActive: Boolean           // Người chơi còn hoạt động không
+}
+```
+
+## Collection: matches (với Teams được nhúng)
+```javascript
+{
+  _id: ObjectId,              // ID tự động sinh bởi MongoDB
+  matchDate: Date,            // Ngày diễn ra trận đấu
+  isRandom: Boolean,          // Xác định đây có phải là trận random không
+  duration: Number,           // Thời gian trận đấu (phút)
+  seasonId: ObjectId,         // Tham chiếu đến mùa giải
+  teams: {
+    blue: {
+      players: [              // Mảng người chơi trong đội xanh
+        {
+          playerId: ObjectId, // Tham chiếu đến người chơi
+          position: String,   // Vị trí trong trận đấu
+          eloBefore: Number,  // ELO trước trận
+          eloAfter: Number,   // ELO sau trận
+          eloChange: Number,  // Thay đổi ELO
+          performanceStats: {  // Chỉ số hiệu suất
+            kills: Number,
+            deaths: Number,
+            assists: Number,
+            damage: Number,
+            gold: Number,
+            cs: Number        // Creep Score
+          },
+          performanceFactor: Number, // Hệ số hiệu suất đã tính
+          positionFactor: Number,    // Hệ số vị trí đã áp dụng
+          streakFactor: Number,      // Hệ số chuỗi thắng/thua đã áp dụng
+          leftEarly: Boolean         // Rời trận sớm không
+        }
+      ],
+      averageElo: Number,     // ELO trung bình đội xanh trước trận
+      expectedWinRate: Number // Tỉ lệ thắng dự đoán cho đội xanh
+    },
+    red: {
+      players: [              // Tương tự như đội xanh
+        {
+          playerId: ObjectId, // Tham chiếu đến người chơi
+          position: String,   // Vị trí trong trận đấu
+          eloBefore: Number,  // ELO trước trận
+          eloAfter: Number,   // ELO sau trận
+          eloChange: Number,  // Thay đổi ELO
+          performanceStats: {  // Chỉ số hiệu suất
+            kills: Number,
+            deaths: Number,
+            assists: Number,
+            damage: Number,
+            gold: Number,
+            cs: Number        // Creep Score
+          },
+          performanceFactor: Number, // Hệ số hiệu suất đã tính
+          positionFactor: Number,    // Hệ số vị trí đã áp dụng
+          streakFactor: Number,      // Hệ số chuỗi thắng/thua đã áp dụng
+          leftEarly: Boolean         // Rời trận sớm không
+        }
+      ],
+      averageElo: Number,     // ELO trung bình đội đỏ trước trận
+      expectedWinRate: Number // Tỉ lệ thắng dự đoán cho đội đỏ
+    }
+  },
+  winnerTeamColor: String,    // "blue" hoặc "red"
+}
+```
+
+## Collection: seasons
+```javascript
+{
+  _id: ObjectId,              // ID tự động sinh bởi MongoDB
+  name: String,               // Tên mùa giải
+  startDate: Date,            // Ngày bắt đầu
+  endDate: Date,              // Ngày kết thúc
+  isActive: Boolean,          // Mùa giải đang hoạt động không
+  settings: {                 // Cài đặt mùa giải
+    kFactors: {               // Hệ số K theo số trận
+      new: Number,            // Người chơi mới (<30 trận)
+      regular: Number,        // Người chơi thường (30-100 trận)
+      experienced: Number     // Người chơi kỳ cựu (>100 trận)
+    },
+    positionFactors: {        // Hệ số vị trí
+      Top: Number,
+      Jungle: Number,
+      Mid: Number,
+      ADC: Number,
+      Support: Number
+    }
+  },
+  rankings: [                 // Bảng xếp hạng cuối mùa
+    {
+      playerId: ObjectId,     // ID người chơi
+      rank: Number,           // Thứ hạng
+      elo: Number             // Điểm ELO cuối mùa
+    }
+  ]
+}
+```
+
+## Collection: penalties
+```javascript
+{
+  _id: ObjectId,              // ID tự động sinh bởi MongoDB
+  playerId: ObjectId,         // Tham chiếu đến người chơi
+  matchId: ObjectId,          // Tham chiếu đến trận đấu
+  type: String,               // Loại penalty (leave, afk, toxic, etc.)
+  description: String,        // Mô tả chi tiết
+  penalty: Number,            // Số điểm bị trừ
+  createdAt: Date             // Ngày tạo
+}
+```
+
+## Các index quan trọng
+
+```javascript
+// Collection players
+db.players.createIndex({ "currentElo": -1 }); // Index cho bảng xếp hạng
+db.players.createIndex({ "name": 1 }, { unique: true }); // Tên người chơi độc nhất
+db.players.createIndex({ "lastMatchDate": -1 }); // Tìm kiếm theo thời gian hoạt động
+
+// Collection matches
+db.matches.createIndex({ "matchDate": -1 }); // Tìm kiếm trận đấu theo thời gian
+db.matches.createIndex({ "teams.blue.players.playerId": 1 }); // Tìm kiếm trận đấu của người chơi trong đội xanh
+db.matches.createIndex({ "teams.red.players.playerId": 1 }); // Tìm kiếm trận đấu của người chơi trong đội đỏ
+db.matches.createIndex({ "seasonId": 1 }); // Tìm kiếm trận đấu theo mùa
+
+// Collection penalties
+db.penalties.createIndex({ "playerId": 1 }); // Tìm kiếm penalty của người chơi
+```
+
+## Ưu điểm của việc nhúng Teams vào Matches:
+
+1. **Giảm số lượng queries**:
+   - Lấy thông tin trận đấu chỉ cần 1 query thay vì nhiều queries để lấy Teams riêng
+   - Không cần tham chiếu giữa collections, tăng hiệu suất đọc
+
+2. **Dữ liệu nhất quán**:
+   - Thông tin Team luôn gắn liền với Match, tránh tham chiếu sai
+   - Dễ dàng bảo trì và quản lý
+
+3. **Tăng hiệu suất truy vấn**:
+   - Cấu trúc phẳng hơn giúp truy vấn nhanh hơn
+   - Giảm thiểu chi phí lookup giữa các collections
+
+4. **Phù hợp với bản chất dữ liệu**:
+   - Teams chỉ tồn tại trong phạm vi của một trận đấu
+   - Cách thiết kế này phản ánh đúng mối quan hệ thực tế
+
+5. **Dễ dàng mở rộng**:
+   - Có thể thêm các thuộc tính mới cho Team mà không ảnh hưởng đến schema
+
+## Lưu ý khi sử dụng cấu trúc nhúng:
+
+1. **Kích thước document**:
+   - Cần đảm bảo document không vượt quá giới hạn 16MB của MongoDB
+   - Trong trường hợp này không có vấn đề vì số lượng người chơi cố định (10)
+
+2. **Truy vấn và aggregation**:
+   - Cần thiết kế index phù hợp cho các truy vấn con trong subdocument
+   - Cấu trúc truy vấn sẽ phức tạp hơn một chút (teams.blue.players thay vì players)
+
+3. **Sao lưu dữ liệu**:
+   - Vì mỗi người chơi xuất hiện trong nhiều trận đấu, thông tin hiệu suất sẽ được lưu lại nhiều lần
+   - Tuy nhiên, điều này cũng giúp giữ lại lịch sử chính xác cho từng trận đấu

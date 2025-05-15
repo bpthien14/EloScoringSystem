@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League of Legends Leaderboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Leaderboards</h1>
+        </header>
+        
+        <div class="info-bar">
+            <div class="info-text">There are currently 1,080,814 summoners in Summoner's Rift</div>
+            <div class="info-text">Displaying summoners ranked Iron and above. Rankings are updated periodically.</div>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" placeholder="Game name #NA1" class="search-input">
+            <button class="search-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="leaderboard">
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Summoner</th>
+                        <th>Tier</th>
+                        <th>LP</th>
+                        <th>Most champions</th>
+                        <th>level</th>
+                        <th>Win rate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td class="summoner-cell">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-f72ka0aVJcfQBqcx9nh2AzWtxm4zm7.png" alt="Avatar" class="avatar">
+                            <div class="summoner-info">
+                                <span class="summoner-name">Pentaless</span>
+                                <span class="summoner-tag">#penta</span>
+                            </div>
+                        </td>
+                        <td>Challenger</td>
+                        <td>1,976</td>
+                        <td class="champions-cell">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.9.1/img/champion/Ahri.png" alt="Champion" class="champion-icon">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.9.1/img/champion/Zed.png" alt="Champion" class="champion-icon">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.9.1/img/champion/Yasuo.png" alt="Champion" class="champion-icon">
+                        </td>
+                        <td>520</td>
+                        <td class="winrate-cell">
+                            <div class="winrate-bar">
+                                <div class="winrate-fill" style="width: 59%"></div>
+                            </div>
+                            <div class="winrate-stats">
+                                <span class="wins">226W</span>
+                                <span class="losses">157L</span>
+                                <span class="percentage">59%</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td class="summoner-cell">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-f72ka0aVJcfQBqcx9nh2AzWtxm4zm7.png" alt="Avatar" class="avatar">
+                            <div class="summoner-info">
+                                <span class="summoner-name">C9 Loki</span>
+                                <span class="summoner-tag">#kr3</span>
+                            </div>
+                        </td>
+                        <td>Challenger</td>
+                        <td>1,959</td>
+                        <td class="champions-cell">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.9.1/img/champion/Lux.png" alt="Champion" class="champion-icon">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.9.1/img/champion/Syndra.png" alt="Champion" class="champion-icon">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.9.1/img/champion/Yone.png" alt="Champion" class="champion-icon">
+                        </td>
+                        <td>70</td>
+                        <td class="winrate-cell">
+                            <div class="winrate-bar">
+                                <div class="winrate-fill" style="width: 60%"></div>
+                            </div>
+                            <div class="winrate-stats">
+                                <span class="wins">253W</span>
+                                <span class="losses">168L</span>
+                                <span class="percentage">60%</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td class="summoner-cell">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-f72ka0aVJcfQBqcx9nh2AzWtxm4zm7.png" alt="Avatar" class="avatar">
+                            <div class="summoner-info">
+                                <span class="summoner-name">AD King</span>
+                                <span class="summoner-tag">#LYON</span>
+                            </div>
+                        </td>
+                        <td>Challenger</td>
+                        <td>1,887</td>
+                        <td class="champions-cell">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.9.1/img/champion/Jinx.png" alt="Champion" class="champion-icon">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.9.1/img/champion/Ezreal.png" alt="Champion" class="champion-icon">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.9.1/img/champion/Kaisa.png" alt="Champion" class="champion-icon">
+                        </td>
+                        <td>81</td>
+                        <td class="winrate-cell">
+                            <div class="winrate-bar">
+                                <div class="winrate-fill" style="width: 58%"></div>
+                            </div>
+                            <div class="winrate-stats">
+                                <span class="wins">318W</span>
+                                <span class="losses">229L</span>
+                                <span class="percentage">58%</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td class="summoner-cell">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-f72ka0aVJcfQBqcx9nh2AzWtxm4zm7.png" alt="Avatar" class="avatar">
+                            <div class="summoner-info">
+                                <span class="summoner-name">Zarnudo</span>
+                                <span class="summoner-tag">#0517</span>
+                            </div>
+                        </td>
+                        <td>Challenger</td>
+                        <td>1,806</td>
+                        <td class="champions-cell">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.9.1/img/champion/Akali.png" alt="Champion" class="champion-icon">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.9.1/img/champion/Zed.png" alt="Champion" class="champion-icon">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.9.1/img/champion/Katarina.png" alt="Champion" class="champion-icon">
+                        </td>
+                        <td>134</td>
+                        <td class="winrate-cell">
+                            <div class="winrate-bar">
+                                <div class="winrate-fill" style="width: 62%"></div>
+                            </div>
+                            <div class="winrate-stats">
+                                <span class="wins">148W</span>
+                                <span class="losses">89L</span>
+                                <span class="percentage">62%</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td class="summoner-cell">
+                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-f72ka0aVJcfQBqcx9nh2AzWtxm4zm7.png" alt="Avatar" class="avatar">
+                            <div class="summoner-info">
+                                <span class="summoner-name">dusklol</span>
+                                <span class="summoner-tag">#000</span>
+                            </div>
+                        </td>
+                        <td>Challenger</td>
+                        <td>1,767</td>
+                        <td class="champions-cell">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.9.1/img/champion/Garen.png" alt="Champion" class="champion-icon">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.9.1/img/champion/Darius.png" alt="Champion" class="champion-icon">
+                            <img src="https://ddragon.leagueoflegends.com/cdn/14.9.1/img/champion/Sett.png" alt="Champion" class="champion-icon">
+                        </td>
+                        <td>396</td>
+                        <td class="winrate-cell">
+                            <div class="winrate-bar">
+                                <div class="winrate-fill" style="width: 58%"></div>
+                            </div>
+                            <div class="winrate-stats">
+                                <span class="wins">187W</span>
+                                <span class="losses">134L</span>
+                                <span class="percentage">58%</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="pagination">
+            <div class="pagination-info">#1 ~ #100 / Total 1,080,814 Summoners</div>
+            <div class="pagination-controls">
+                <a href="#" class="page-link active">1</a>
+                <a href="#" class="page-link">2</a>
+                <a href="#" class="page-link">3</a>
+                <a href="#" class="page-link">4</a>
+                <a href="#" class="page-link">5</a>
+                <a href="#" class="page-link">6</a>
+                <a href="#" class="page-link">7</a>
+                <a href="#" class="page-link">8</a>
+                <a href="#" class="page-link">9</a>
+                <a href="#" class="page-link">10</a>
+                <a href="#" class="page-link next">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add click event to navigate to player detail page
+        document.querySelectorAll('.summoner-cell').forEach(cell => {
+            cell.addEventListener('click', () => {
+                window.location.href = 'player-detail.html';
+            });
+        });
+    </script>
+</body>
+</html>
