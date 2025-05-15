@@ -7,9 +7,7 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "League of Legends Leaderboard",
-  description: "League of Legends player rankings and statistics",
-    generator: 'v0.dev'
-}
+  description: "League of Legends player rankings and statistics"}
 
 export default function RootLayout({
   children,
